@@ -149,7 +149,6 @@ int main(int argc, char* argv[ ])
 	{
 		g_param_iter_count = std::clamp( atoi(argv[1]), 1000*10, 1000*1000*10);		
 	}	
-	g_param_iter_count = 100;
 
 	//
 
