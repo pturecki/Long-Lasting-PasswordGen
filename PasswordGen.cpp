@@ -179,4 +179,6 @@ int main(int argc, char* argv[ ])
 
 	char line[100] = { 0, };
 	scanf_s("%s", line, 99);
+
+	return 0;
 }
