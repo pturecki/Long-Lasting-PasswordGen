@@ -7,6 +7,8 @@ Program generates some string of digits that can be used as a password for apps 
 Generating a password intentionally takes a long time (for example a whole day or more). 
 You can control this time by specify parameter to application (clamped to range: 10,000 - 10,000,000). You can try different values on your computer and check how long it takes (progress is updated during generation process).
 
+The code is also intentionally written in such a way that it is difficult to rewrite it into code that runs faster.
+
 ![](screenshot.jpg)
 
 ## Building from sources
