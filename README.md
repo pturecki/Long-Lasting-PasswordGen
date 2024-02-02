@@ -12,5 +12,5 @@ You can control this time by specify parameter to application (clamped to range:
 ## Building from sources
 Program uses C++ 17 (with some small changes it can be compiled in older standards) and is a single file cpp. Project solution is for Visual Studio 2022. WinAPI is used only for copying generated string to clipboard.
 
-## Download latest build
+## Download the latest build
 The latest, ready to use build is in folder 'exe'. 
