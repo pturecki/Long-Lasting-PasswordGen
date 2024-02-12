@@ -148,7 +148,7 @@ int main(int argc, char* argv[ ])
 	if (argc >= 2)
 	{
 		g_param_iter_count = std::clamp( atoi(argv[1]), 1000*10, 1000*1000*10);		
-	}	
+	}		
 
 	//
 
@@ -167,18 +167,39 @@ int main(int argc, char* argv[ ])
 	// encode
 
 	encode_string(in_buf, out_buf);
-	copy_to_clipboard(out_buf);
+	copy_to_clipboard(out_buf); // !!! sometimes after long running, password is not copied to clipboard; why? todo
 
 	// result
 
 	printf("\n\nGenerated password:\n");
-	printf("%s\n\n", out_buf);
-	printf("Password is copied to the clipboard. Store password, then type something and press enter to exit\n");
+	printf("%s\n", out_buf);
+	printf("\n\nGenerated password (in packets of 3 characters):\n");
+	for (int i = 0; i < strlen(out_buf); i++)
+	{		
+		printf("%c", out_buf[i]);		
+		if (( ( i + 1 ) % 3 ) == 0)
+		{
+			printf(" ");
+		}
+	}
+	printf("\n\n\n");
+	printf("Password should be copied to the clipboard - check it.\n");
+	printf("Type 'exit' and press enter to exit program. Anything else will copy password to the clipboard again\n\n");
 
 	// wait for input
 
-	char line[100] = { 0, };
-	scanf_s("%s", line, 99);
+	copy_to_clipboard(out_buf); // again
+	for (;;)
+	{
+		printf(">");
+		char line[100] = { 0, };
+		scanf_s("%s", line, 99);
+		if (strcmp(line, "exit") == 0)
+		{
+			break;
+		}
+		copy_to_clipboard(out_buf);
+	}
 
 	return 0;
 }
