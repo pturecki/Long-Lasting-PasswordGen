@@ -56,7 +56,7 @@ void stats_print()
 }
 
 
-int gen_some_number(int iter)
+int gen_some_number(int iter, int prev_encoded_value)
 {
 	int res = 1;
 	for (int i = 0; i < 1000 * 1000; i++)
@@ -64,6 +64,8 @@ int gen_some_number(int iter)
 		res *= iter;
 		res ^= iter;
 		res ^= i;
+		res += prev_encoded_value;
+		res ^= prev_encoded_value;
 		res &= 0xff;
 	}
 	return res;
@@ -82,7 +84,7 @@ int encode_single_value(int val, int prev_encoded_value)
 		stats_print();
 
 		int stringcode = some_string[i % len];
-		int itercode = gen_some_number(i);
+		int itercode = gen_some_number(i, prev_encoded_value);
 
 		res += stringcode;
 		res ^= itercode;
