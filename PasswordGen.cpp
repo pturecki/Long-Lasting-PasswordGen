@@ -72,7 +72,49 @@ int gen_some_number(int iter, int prev_encoded_value)
 }
 
 
+#include <ppl.h>
+using namespace concurrency;
+using namespace std;
+
+
 int encode_single_value(int val, int prev_encoded_value)
+{
+	int res = val;
+
+	const char* some_string = "Niech sie pan nad tym zastanowi";
+	int len = (int)strlen(some_string);
+
+	int* buffer = new int[g_param_iter_count];
+
+	parallel_for(0, g_param_iter_count, [&](int i)
+		{
+			//stats_print();
+			int itercode = gen_some_number(i, prev_encoded_value);
+			buffer[i] = itercode;
+		}
+	);
+
+	stats_print();
+	for (int i = 0; i < g_param_iter_count; i++)
+	{
+		stats_print();
+
+		int stringcode = some_string[i % len];
+		int itercode = buffer[i]; //gen_some_number(i, prev_encoded_value);
+
+		res += stringcode;
+		res ^= itercode;
+		res += prev_encoded_value;
+		res ^= prev_encoded_value;
+	}
+
+	delete[] buffer;
+
+	return res;
+}
+
+
+int encode_single_value___(int val, int prev_encoded_value)
 {
 	int res = val;
 
